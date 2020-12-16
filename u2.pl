@@ -268,14 +268,14 @@ ecrire([H|T]) :-
 
 % Affiche le contenu d'une liste de Transitions
 %
-% ecrireTransitions(Transitions, ListeTransitions)
+% ecrireTransitions(ListeTransitions)
 %
-ecrireTransitions(TransitionsFinales, []).
-ecrireTransitions(TransitionsFinales, [H|T]) :-
-    % nth0(NumTransition, _, H),
-    % nl, ecrire("Solution #"), ecrire(NumTransition), nl, nl,
+ecrireTransitions([]).
+
+ecrireTransitions([H|T]) :-
+
     ecrire(H), nl, nl,
-    ecrireTransitions(TransitionsFinales, T).
+    ecrireTransitions(T).
 
 %===========================================================================
 % Prédicats décrivant la recherche de solutions valides
@@ -307,7 +307,7 @@ trouver_solutions :-
             etat(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, droite, _),
             Transitions),
         SetTransitions),
-    ecrireTransitions(SetTransitions, SetTransitions).
+    nl, ecrireTransitions(SetTransitions).
 
 %===========================================================================
 % Prédicat permettant de vérifier si une solution est valide
@@ -320,7 +320,7 @@ solution_est_valide(Transitions) :-
         etat(1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, gauche, 0),
         etat(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, droite, Minutes),
         Transitions),
-    EstValide -> (write("La solution est valide!"), true) ; (write("La solution n'est pas valide!"), false).
+    EstValide -> (write("\nLa solution est valide!\n"), true) ; (write("\nLa solution n'est pas valide!\n"), false).
 
 exemple_solution_est_valide :-
 
