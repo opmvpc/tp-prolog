@@ -1,3 +1,6 @@
+:- begin_tests(lists).
+:- use_module(library(lists)).
+
 %==============================================================================
 % Prédicats représentant les différentes situations de traversée du pont
 % en individualisant les différents membres du groupe U2 puisqu'ils
@@ -341,3 +344,100 @@ exemple_solution_est_valide :-
         traverser,
         descendre_pont(1,1,0,0)
     ]).
+
+
+%===========================================================================
+% Suite de tests
+%===========================================================================
+
+test(trouver_solutions_ok) :-
+    trouver_solutions.
+
+test(solutions_trouvees_sont_ok) :-
+    setof(
+        Transitions,
+        recherche(
+            etat(1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, gauche, 0),
+            etat(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, droite, _),
+            Transitions),
+        SetTransitions),
+
+        append([
+        [
+            monter_pont(1,1,0,0),
+            traverser,
+            descendre_pont(1,1,0,0),
+            monter_pont(0,1,0,0),
+            traverser,
+            descendre_pont(0,1,0,0),
+            monter_pont(0,0,1,1),
+            traverser,
+            descendre_pont(0,0,1,1),
+            monter_pont(1,0,0,0),
+            traverser,
+            descendre_pont(1,0,0,0),
+            monter_pont(1,1,0,0),
+            traverser,
+            descendre_pont(1,1,0,0)
+        ],
+        [
+            monter_pont(1,1,0,0),
+            traverser,
+            descendre_pont(1,1,0,0),
+            monter_pont(1,0,0,0),
+            traverser,
+            descendre_pont(1,0,0,0),
+            monter_pont(0,0,1,1),
+            traverser,
+            descendre_pont(0,0,1,1),
+            monter_pont(0,1,0,0),
+            traverser,
+            descendre_pont(0,1,0,0),
+            monter_pont(1,1,0,0),
+            traverser,
+            descendre_pont(1,1,0,0)
+        ]
+    ], [], SetTransitions).
+
+test(solution_est_valide_ok) :-
+    solution_est_valide([
+        monter_pont(1,1,0,0),
+        traverser,
+        descendre_pont(1,1,0,0),
+        monter_pont(1,0,0,0),
+        traverser,
+        descendre_pont(1,0,0,0),
+        monter_pont(0,0,1,1),
+        traverser,
+        descendre_pont(0,0,1,1),
+        monter_pont(0,1,0,0),
+        traverser,
+        descendre_pont(0,1,0,0),
+        monter_pont(1,1,0,0),
+        traverser,
+        descendre_pont(1,1,0,0)
+    ]).
+
+test(solution_est_valide_fail, [fail]) :-
+    solution_est_valide([
+        monter_pont(1,0,0,0),
+        traverser,
+        descendre_pont(1,1,0,0),
+        monter_pont(1,0,0,0),
+        traverser,
+        descendre_pont(1,0,0,0),
+        monter_pont(0,0,1,1),
+        traverser,
+        descendre_pont(0,0,1,1),
+        monter_pont(0,0,1,0),
+        traverser,
+        descendre_pont(0,0,1,0),
+        monter_pont(1,0,1,0),
+        traverser,
+        descendre_pont(1,0,1,0)
+    ]).
+
+test(exemple_solution_est_valide_ok) :-
+    exemple_solution_est_valide.
+
+:- end_tests(lists).
