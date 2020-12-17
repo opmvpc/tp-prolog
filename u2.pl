@@ -1,6 +1,3 @@
-:- begin_tests(lists).
-:- use_module(library(lists)).
-
 %==============================================================================
 % Prédicats représentant les différentes situations de traversée du pont
 % en individualisant les différents membres du groupe U2 puisqu'ils
@@ -348,7 +345,12 @@ exemple_solution_est_valide :-
 
 %===========================================================================
 % Suite de tests
+%
+% goal pour les lancer => ?- run_tests.
+% voir coverage => ?- show_coverage(run_tests).
 %===========================================================================
+:- begin_tests(lists).
+:- use_module(library(lists)).
 
 test(trouver_solutions_ok) :-
     trouver_solutions.
