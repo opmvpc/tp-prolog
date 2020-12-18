@@ -8,6 +8,8 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
       - name: Install SWI-Prolog
         uses: logtalk-actions/setup-swi-prolog@master
