@@ -11,6 +11,7 @@ jobs:
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
+      - uses: actions/checkout@v2
       - name: Install SWI-Prolog
         uses: logtalk-actions/setup-swi-prolog@master
         with:
@@ -18,10 +19,7 @@ jobs:
           swi-prolog-version: latest
       - name: Run trivial sanity test
         run: swipl -g true -t halt
-      - name: Install Logtalk
-        uses: logtalk-actions/setup-logtalk@master
-        with:
-          logtalk-version: latest
-          logtalk-tool-dependencies: false
-      - name: Run Logtalk aliases example tests
-        run: cd "$LOGTALKUSER/examples/aliases" && logtalk_tester -p swi
+      - name: check dir
+        run: ls
+      - name: Run tests
+        run: swipl -q -t "run_tests." u2.pl
